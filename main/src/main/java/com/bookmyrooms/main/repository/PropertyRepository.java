@@ -32,4 +32,6 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             @Param("lon") double lon,
             @Param("lat") double lat
     );
+
+
 }

@@ -6,6 +6,8 @@ import com.bookmyrooms.main.entities.Property;
 import com.bookmyrooms.main.services.PropertyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +30,11 @@ public class PropertyController {
         Property property = new Property(propertyDto.getName());
        return this.propertyService.saveProperty(property, propertyDto.getLon(), propertyDto.getLat());
 
+    }
+
+    @GetMapping
+    public Page<PropertyDto> getProperties(Pageable pageable){
+        return this.propertyService.getProperties(pageable);
     }
 
     @GetMapping("/nearby")

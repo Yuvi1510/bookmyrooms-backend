@@ -9,6 +9,8 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +43,16 @@ public class PropertyServiceImpl implements PropertyService{
     }
 
 
+    @Override
+    public Page<PropertyDto> getProperties(Pageable pageable) {
+        Page<Property> properties =  this.propertyRepository.findAll(pageable);
+
+        Page<PropertyDto> propertyDtos = properties.map(this::toPropertyDto);
+        return propertyDtos;
+    }
+
+
+    // method to convert Property to PropertyDto
     private PropertyDto toPropertyDto(Property property){
         PropertyDto dto = modelMapper.map(property, PropertyDto.class);
 
