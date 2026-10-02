@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,8 +30,8 @@ public class PropertyServiceImpl implements PropertyService{
     }
 
     @Override
-    public List<NearbyPropertyDto> getPropertiesInRadius(double lon, double lat) {
-        return propertyRepository.findPropertiesWithinRadius(lon, lat);
+    public Page<NearbyPropertyDto> getPropertiesInRadius(double lon, double lat, Pageable pageable) {
+        return propertyRepository.findPropertiesWithinRadius(lon, lat, pageable);
     }
 
     @Override
@@ -51,10 +52,17 @@ public class PropertyServiceImpl implements PropertyService{
         return propertyDtos;
     }
 
+    @Override
+    public Property getPropertyById(Long propertyId) {
+        Optional<Property> optional = this.propertyRepository.findById(propertyId);
+        return optional.isPresent()? optional.get() : null;
+    }
+
 
     // method to convert Property to PropertyDto
     private PropertyDto toPropertyDto(Property property){
         PropertyDto dto = modelMapper.map(property, PropertyDto.class);
+        dto.setNoOfRooms(this.propertyRepository.getNumberOfRooms(property.getPropertyId()));
 
         // if the location is not null then only try to convert point to longitude and latitude
         if(property.getLocation() != null){

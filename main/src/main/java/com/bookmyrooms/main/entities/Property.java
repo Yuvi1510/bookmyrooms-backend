@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.locationtech.jts.geom.Point;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "properties")
 @NoArgsConstructor
@@ -24,7 +27,23 @@ public class Property {
     @Column(columnDefinition = "geography(Point, 4326)")
     private Point location;
 
+    @OneToMany(mappedBy = "property",
+        cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Room> rooms = new ArrayList<>();
+
+
     public Property(String name) {
         this.name = name;
+    }
+
+    // helper class to add and remove rooms
+    public void addRoom(Room room){
+        rooms.add(room);
+        room.setProperty(this);
+    }
+
+    public void removeRoom(Room room){
+        rooms.remove(room);
+        room.setProperty(null);
     }
 }
