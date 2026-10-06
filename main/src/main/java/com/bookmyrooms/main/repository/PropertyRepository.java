@@ -13,6 +13,8 @@ import java.util.List;
 
 public interface PropertyRepository extends JpaRepository<Property, Long> {
 
+    boolean existsByPropertyId(Long propertyId);
+
     @Query(value = """
         SELECT property_id, name , 
                ST_X(location::geometry) AS lon,

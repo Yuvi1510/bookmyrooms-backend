@@ -10,40 +10,38 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RoomServiceImpl implements RoomService{
     private final ModelMapper modelMapper;
     private final PropertyRepository propertyRepository;
-    private final PropertyService propertyService;
     private final RoomRepository roomRepository;
 
     @Autowired
-    public RoomServiceImpl(ModelMapper modelMapper, PropertyRepository propertyRepository, PropertyService propertyService, RoomRepository roomRepository) {
+    public RoomServiceImpl(ModelMapper modelMapper, PropertyRepository propertyRepository, RoomRepository roomRepository) {
         this.modelMapper = modelMapper;
         this.propertyRepository = propertyRepository;
-        this.propertyService = propertyService;
         this.roomRepository = roomRepository;
     }
 
+
+
     @Override
     @Transactional
-    public boolean addRoom(Long propertyId, RoomDto roomDto) {
-        if(this.roomRepository.existsByPropertyPropertyIdAndRoomNumber(propertyId, roomDto.getRoomNumber())){
-            throw new DuplicateException("Room", "Room Number", roomDto.getRoomNumber().toString());
-        }
-        Room room = modelMapper.map(roomDto, Room.class);
-        Property property = this.propertyService.getPropertyById(propertyId);
-        property.addRoom(room);
+    public Page<RoomDto> getAllRooms(Pageable pageable) {
+//        Page<Room> rooms = this.roomRepository.findAll(pageable);
+//        Page<RoomDto> roomDtos = rooms.map(
+//                room -> this.modelMapper.map(room, RoomDto.class)
+//        );
+//        return roomDtos;
 
-        this.propertyRepository.save(property);
-        return true;
+        return this.roomRepository.getAllRooms(pageable);
     }
 
     @Override
-    @Transactional
-    public Page<Room> getAllRooms() {
-        return null;
+    public boolean existsByPropertyPropertyIdAndRoomNumber(Long propertyId, Long roomId) {
+        return this.roomRepository.existsByPropertyPropertyIdAndRoomNumber(propertyId, roomId);
     }
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PropertyDto {
-    private String name;
+    private String propertyName;
     private double lon;
     private double lat;
     private int noOfRooms;

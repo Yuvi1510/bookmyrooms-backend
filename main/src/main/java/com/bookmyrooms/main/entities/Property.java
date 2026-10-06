@@ -1,5 +1,6 @@
 package com.bookmyrooms.main.entities;
 
+import com.bookmyrooms.main.enums.PropertyType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,10 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long propertyId;
 
-    private String name;
+    private String propertyName;
+
+    @Enumerated(EnumType.STRING)
+    private PropertyType propertyType;
 
     @Column(columnDefinition = "geography(Point, 4326)")
     private Point location;
@@ -33,7 +37,7 @@ public class Property {
 
 
     public Property(String name) {
-        this.name = name;
+        this.propertyName = name;
     }
 
     // helper class to add and remove rooms
