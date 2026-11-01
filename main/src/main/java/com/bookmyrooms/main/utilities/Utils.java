@@ -1,9 +1,5 @@
-package com.bookmyrooms.main.configs;
+package com.bookmyrooms.main.utilities;
 
-import com.bookmyrooms.main.dtos.PropertyDto;
-import com.bookmyrooms.main.dtos.RoomDto;
-import com.bookmyrooms.main.entities.Property;
-import com.bookmyrooms.main.entities.Room;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

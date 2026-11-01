@@ -3,9 +3,7 @@ package com.bookmyrooms.main.controllers;
 import com.bookmyrooms.main.dtos.NearbyPropertyDto;
 import com.bookmyrooms.main.dtos.PropertyDto;
 import com.bookmyrooms.main.dtos.RoomDto;
-import com.bookmyrooms.main.entities.Property;
 import com.bookmyrooms.main.services.PropertyService;
-import com.bookmyrooms.main.services.RoomService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RestController
+@CrossOrigin(origins = "http://localhost:5173") // Allow only your React app
 @RequestMapping("/api/properties")
 public class PropertyController {
     private final PropertyService propertyService;
