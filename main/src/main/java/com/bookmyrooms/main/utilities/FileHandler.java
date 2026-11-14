@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class FileHandler {
 
-    public String uploadImage(String path, MultipartFile file) {
+    public static String uploadImage(String path, MultipartFile file) {
         String fileName = file.getOriginalFilename();
 
         String extension = "";
@@ -45,7 +45,7 @@ public class FileHandler {
         return newFileName;
     }
 
-    public Resource serveImage(String path , String fileName){
+    public static Resource serveImage(String path , String fileName){
         try{
             Path filePath = Path.of(path).resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());

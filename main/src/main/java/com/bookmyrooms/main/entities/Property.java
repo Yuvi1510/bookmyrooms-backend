@@ -23,7 +23,8 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long propertyId;
 
-    private String propertyName;
+    private String title;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
@@ -31,14 +32,20 @@ public class Property {
     @Column(columnDefinition = "geography(Point, 4326)")
     private Point location;
 
+    @OneToOne(mappedBy = "property", cascade = CascadeType.ALL)
+    private Address address;
+
+
+
     @OneToMany(mappedBy = "property",
         cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Room> rooms = new ArrayList<>();
 
+    @ManyToOne
+    private PrivacyOption privacyOption;
 
-    public Property(String name) {
-        this.propertyName = name;
-    }
+    @OneToOne(mappedBy = "property", cascade = CascadeType.ALL)
+    private PropertyImage propertyImage;
 
     // helper class to add and remove rooms
     public void addRoom(Room room){
@@ -50,4 +57,5 @@ public class Property {
         rooms.remove(room);
         room.setProperty(null);
     }
+
 }

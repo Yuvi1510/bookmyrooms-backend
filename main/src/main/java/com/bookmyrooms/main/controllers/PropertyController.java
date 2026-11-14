@@ -3,6 +3,7 @@ package com.bookmyrooms.main.controllers;
 import com.bookmyrooms.main.dtos.NearbyPropertyDto;
 import com.bookmyrooms.main.dtos.PropertyDto;
 import com.bookmyrooms.main.dtos.RoomDto;
+import com.bookmyrooms.main.request.PropertyListingRequest;
 import com.bookmyrooms.main.services.PropertyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173") // Allow only your React app
@@ -28,9 +33,11 @@ public class PropertyController {
     }
 
     // add properties
-    @PostMapping("/add")
-    public PropertyDto addProperty(@RequestBody PropertyDto propertyDto){
-       return this.propertyService.saveProperty(propertyDto);
+    @PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public PropertyDto addProperty(
+            @RequestPart("data")PropertyListingRequest propertyListingRequest,
+            @RequestPart("images") MultipartFile file){
+       return this.propertyService.saveProperty(propertyListingRequest, file);
 
     }
 

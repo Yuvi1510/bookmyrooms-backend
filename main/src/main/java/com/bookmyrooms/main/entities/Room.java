@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "rooms")
 @Getter
@@ -19,12 +21,21 @@ public class Room {
     private Long roomId;
     private Long roomNumber;
     private double areaInSqFt;
-    private int noOfBeds;
 
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
-    private double price;
+    private double basePrice;
+    private int weekendAdjustment;
+    private double cleaningFee;
+
+    private int guests;
+    private int bedrooms;
+    private int beds;
+    private int bathrooms;
     private boolean isAvailable;
+
+    @ManyToMany
+    private List<Amenities> amenities;
 
     // for many to one set fetchtype lazy to avoid n+1 query problem
     @ManyToOne(fetch = FetchType.LAZY)
