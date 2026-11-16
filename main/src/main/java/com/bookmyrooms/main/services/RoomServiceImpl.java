@@ -37,7 +37,8 @@ public class RoomServiceImpl implements RoomService{
 //        );
 //        return roomDtos;
 
-        return this.roomRepository.getAllRooms(pageable);
+//        return this.roomRepository.getAllRooms(pageable);
+        return null;
     }
 
     @Override

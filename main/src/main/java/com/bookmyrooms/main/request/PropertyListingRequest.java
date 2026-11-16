@@ -20,7 +20,7 @@ public class PropertyListingRequest {
     private String title;
     private String description;
 
-    // capacity, amenities and pricing will be included in the add rooms feature
+    // capacity(floor plan), amenities and pricing will be included in the add rooms feature
     // only one image for property
     // multiple images for room
 

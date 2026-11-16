@@ -1,6 +1,7 @@
 package com.bookmyrooms.main.entities;
 
 import com.bookmyrooms.main.enums.PropertyType;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
