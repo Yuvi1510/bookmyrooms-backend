@@ -1,5 +1,6 @@
 package com.bookmyrooms.main.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +24,6 @@ public class Address {
     private String postalCode;
 
     @OneToOne
+    @JsonIgnore
     private Property property;
 }

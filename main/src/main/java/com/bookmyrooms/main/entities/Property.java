@@ -1,7 +1,7 @@
 package com.bookmyrooms.main.entities;
 
 import com.bookmyrooms.main.enums.PropertyType;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,18 +34,19 @@ public class Property {
     private Point location;
 
     @OneToOne(mappedBy = "property", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Address address;
-
-
 
     @OneToMany(mappedBy = "property",
         cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Room> rooms = new ArrayList<>();
 
     @ManyToOne
     private PrivacyOption privacyOption;
 
     @OneToOne(mappedBy = "property", cascade = CascadeType.ALL)
+    @JsonIgnore
     private PropertyImage propertyImage;
 
     // helper class to add and remove rooms
@@ -59,4 +60,18 @@ public class Property {
         room.setProperty(null);
     }
 
+    public void setPropertyImage(PropertyImage propertyImage){
+        this.propertyImage = propertyImage;
+        propertyImage.setProperty(this);
+    }
+
+    public void setAddress(Address address){
+        this.address = address;
+        address.setProperty(this);
+    }
+
+    public void setPrivacyOption(PrivacyOption privacyOption){
+        this.privacyOption = privacyOption;
+        privacyOption.getProperty().add(this);
+    }
 }

@@ -1,5 +1,6 @@
 package com.bookmyrooms.main.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,10 +20,13 @@ public class PrivacyOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long privacyOptionId;
 
+    @Column(name = "type")
     private String type;
 
+    @Column(name = "description")
     private String description;
 
     @OneToMany
+    @JsonIgnore
     private List<Property> property;
 }

@@ -57,30 +57,30 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public PropertyDto saveProperty(PropertyListingRequest propertyListingRequest, MultipartFile file) {
-        Point point = geometryFactory.createPoint(new Coordinate(propertyListingRequest.getLocation().getLatitude(), propertyListingRequest.getLocation().getLongitude()));
+        Point point = geometryFactory.createPoint(new Coordinate(propertyListingRequest.getLocation().getLongitude(), propertyListingRequest.getLocation().getLatitude()));
 
         Property property = new Property();
-        property.setTitle(propertyListingRequest.getTitle());
-        property.setDescription(property.getDescription());
-        property.setPropertyType(propertyListingRequest.getPropertyStructure());
         property.setLocation(point);
+        property.setTitle(propertyListingRequest.getTitle());
+        property.setDescription(propertyListingRequest.getDescription());
+        property.setPropertyType(propertyListingRequest.getPropertyStructure());
         property.setAddress(propertyListingRequest.getAddress());
 
         PrivacyOption privacyOption = privacyOptionRepository.findByType(
                 propertyListingRequest.getPrivacyType()
-        );
-
+        ).orElse(null);
         property.setPrivacyOption(privacyOption);
 
+        System.out.println("Privacy option: "+ property.getPrivacyOption().getType());
         // save porperty
-        Property savedProperty = this.propertyRepository.save(property);
+//        Property savedProperty = this.propertyRepository.save(property);
 
+        // save image
         String fileName = FileHandler.uploadImage(propertyImagesPath, file);
-
         PropertyImage img = new PropertyImage(fileName);
         property.setPropertyImage(img);
 
-        savedProperty = this.propertyRepository.save(savedProperty);
+        Property savedProperty = this.propertyRepository.save(property);
 
         return toPropertyDto(savedProperty);
     }
@@ -133,9 +133,17 @@ public class PropertyServiceImpl implements PropertyService {
 
     // method to convert Property to PropertyDto
     private PropertyDto toPropertyDto(Property property){
-        PropertyDto dto = modelMapper.map(property, PropertyDto.class);
+        PropertyDto dto = new PropertyDto(
+                property.getPropertyId(),
+                property.getTitle(),
+                property.getDescription(),
+                property.getAddress(),
+                property.getPrivacyOption()
+        );
 
-        dto.setImageName(property.getPropertyImage().getImageName());
+        if(property.getPropertyImage() != null){
+            dto.setImageName(property.getPropertyImage().getImageName());
+        }
 
         // if the location is not null then only try to convert point to longitude and latitude
         if(property.getLocation() != null){
@@ -154,4 +162,6 @@ public class PropertyServiceImpl implements PropertyService {
         Property property = optional.isPresent() ? optional.get() : null;
         return property;
     }
+
+
 }
