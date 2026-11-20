@@ -37,6 +37,8 @@ public class Property {
     @JsonIgnore
     private Address address;
 
+    private boolean isVerified = false;
+
     @OneToMany(mappedBy = "property",
         cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore

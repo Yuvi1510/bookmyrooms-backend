@@ -43,7 +43,7 @@ public class PropertyController {
 
     // get all properties
     @GetMapping
-    public Page<PropertyDto> getProperties(@PageableDefault(page = 0, size = 6, sort = "name") Pageable pageable){
+    public Page<PropertyDto> getProperties(@PageableDefault(page = 0, size = 6, sort = "title") Pageable pageable){
         return this.propertyService.getProperties(pageable);
     }
 

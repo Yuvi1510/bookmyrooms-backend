@@ -52,9 +52,11 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Page<NearbyPropertyDto> getPropertiesInRadius(double lon, double lat, Pageable pageable) {
-        return propertyRepository.findPropertiesWithinRadius(lon, lat, pageable);
+//        return propertyRepository.findPropertiesWithinRadius(lon, lat, pageable);
+        return null;
     }
 
+    // add a new property
     @Override
     public PropertyDto saveProperty(PropertyListingRequest propertyListingRequest, MultipartFile file) {
         Point point = geometryFactory.createPoint(new Coordinate(propertyListingRequest.getLocation().getLongitude(), propertyListingRequest.getLocation().getLatitude()));
@@ -90,17 +92,14 @@ public class PropertyServiceImpl implements PropertyService {
     public Page<PropertyDto> getProperties(Pageable pageable) {
         Page<Property> properties = this.propertyRepository.findAll(pageable);
 
-//        Page<PropertyDto> propertyDtos = properties.map(this::toPropertyDto);
-//        return propertyDtos;
-
-        return null;
+        Page<PropertyDto> propertyDtos = properties.map(this::toPropertyDto);
+        return propertyDtos;
     }
 
     @Override
     public PropertyDto getPropertyById(Long propertyId) {
         Property property = this.getById(propertyId);
-//        return toPropertyDto(property);
-        return null;
+        return toPropertyDto(property);
     }
 
 
@@ -138,7 +137,8 @@ public class PropertyServiceImpl implements PropertyService {
                 property.getTitle(),
                 property.getDescription(),
                 property.getAddress(),
-                property.getPrivacyOption()
+                property.getPrivacyOption(),
+                property.isVerified()
         );
 
         if(property.getPropertyImage() != null){

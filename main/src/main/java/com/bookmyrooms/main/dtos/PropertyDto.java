@@ -22,12 +22,15 @@ public class PropertyDto {
     private PrivacyOption privacyOption;
     private String imageName;
     private Location location;
+    private boolean isVerified;
 
-    public PropertyDto(Long propertyId, String title, String description, Address address, PrivacyOption privacyOption){
+
+    public PropertyDto(Long propertyId, String title, String description, Address address, PrivacyOption privacyOption, boolean isVerified){
         this.propertyId = propertyId;
         this.title = title;
         this.description = description;
         this.address = address;
         this.privacyOption = privacyOption;
+        this.isVerified = isVerified;
     }
 }
