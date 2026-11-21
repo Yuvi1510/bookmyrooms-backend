@@ -1,14 +1,12 @@
 package com.bookmyrooms.main.dtos;
 
-import com.bookmyrooms.main.entities.Address;
-import com.bookmyrooms.main.entities.PrivacyOption;
+import com.bookmyrooms.main.entities.properties.Address;
+import com.bookmyrooms.main.entities.properties.PrivacyOption;
 import com.bookmyrooms.main.entities.misc.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor

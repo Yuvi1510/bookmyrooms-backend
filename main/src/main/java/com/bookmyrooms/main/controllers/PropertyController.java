@@ -71,12 +71,4 @@ public class PropertyController {
         return new ResponseEntity<>("Resource not found", HttpStatus.NOT_FOUND);
     }
 
-
-    /// for rooms of properties
-    @PostMapping("/{propertyId}/addroom")
-    public ResponseEntity<?> addRoom(@PathVariable Long propertyId,
-                                  @RequestBody RoomDto roomDto){
-       RoomDto savedRoom = this.propertyService.addRoom(propertyId, roomDto);
-       return new ResponseEntity<>(savedRoom, HttpStatus.CREATED);
-    }
 }

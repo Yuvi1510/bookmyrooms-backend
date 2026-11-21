@@ -1,11 +1,7 @@
 package com.bookmyrooms.main.repository;
 
-import com.bookmyrooms.main.dtos.RoomDto;
-import com.bookmyrooms.main.entities.Room;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.bookmyrooms.main.entities.rooms.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
     boolean existsByPropertyPropertyIdAndRoomNumber(Long propertyId, Long roomNumber);

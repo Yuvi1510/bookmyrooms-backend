@@ -1,11 +1,10 @@
 package com.bookmyrooms.main.dtos;
 
-import com.bookmyrooms.main.entities.Amenities;
-import com.bookmyrooms.main.entities.misc.Capacity;
-import com.bookmyrooms.main.entities.misc.Pricing;
+import com.bookmyrooms.main.entities.rooms.Amenities;
 import com.bookmyrooms.main.enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class RoomDto {
     private Long roomId;
     private Long roomNumber;
@@ -27,4 +27,5 @@ public class RoomDto {
     private double cleaningFee;
     private List<Amenities> amenities;
     private boolean isAvailable;
+    private List<String> imageNames;
 }

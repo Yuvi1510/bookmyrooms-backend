@@ -3,13 +3,10 @@ package com.bookmyrooms.main.services;
 import com.bookmyrooms.main.dtos.NearbyPropertyDto;
 import com.bookmyrooms.main.dtos.PropertyDto;
 import com.bookmyrooms.main.dtos.RoomDto;
-import com.bookmyrooms.main.entities.Property;
 import com.bookmyrooms.main.request.PropertyListingRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 public interface PropertyService {
     PropertyDto saveProperty(PropertyListingRequest propertyListingRequest, MultipartFile files);

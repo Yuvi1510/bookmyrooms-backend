@@ -1,6 +1,6 @@
 package com.bookmyrooms.main.request;
 
-import com.bookmyrooms.main.entities.Address;
+import com.bookmyrooms.main.entities.properties.Address;
 import com.bookmyrooms.main.entities.misc.Location;
 import com.bookmyrooms.main.enums.PropertyType;
 import lombok.AllArgsConstructor;

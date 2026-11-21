@@ -1,5 +1,6 @@
-package com.bookmyrooms.main.entities;
+package com.bookmyrooms.main.entities.properties;
 
+import com.bookmyrooms.main.entities.rooms.Room;
 import com.bookmyrooms.main.enums.PropertyType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

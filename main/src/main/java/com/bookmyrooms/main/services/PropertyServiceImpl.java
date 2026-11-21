@@ -3,10 +3,10 @@ package com.bookmyrooms.main.services;
 import com.bookmyrooms.main.dtos.NearbyPropertyDto;
 import com.bookmyrooms.main.dtos.PropertyDto;
 import com.bookmyrooms.main.dtos.RoomDto;
-import com.bookmyrooms.main.entities.PrivacyOption;
-import com.bookmyrooms.main.entities.Property;
-import com.bookmyrooms.main.entities.PropertyImage;
-import com.bookmyrooms.main.entities.Room;
+import com.bookmyrooms.main.entities.properties.PrivacyOption;
+import com.bookmyrooms.main.entities.properties.Property;
+import com.bookmyrooms.main.entities.properties.PropertyImage;
+import com.bookmyrooms.main.entities.rooms.Room;
 import com.bookmyrooms.main.exceptions.DuplicateException;
 import com.bookmyrooms.main.exceptions.ResourceNotFoundException;
 import com.bookmyrooms.main.repository.PrivacyOptionRepository;
@@ -23,9 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import tools.jackson.databind.annotation.JsonAppend;
 
-import java.util.List;
 import java.util.Optional;
 import com.bookmyrooms.main.entities.misc.Location;
 import com.bookmyrooms.main.utilities.FileHandler;
@@ -99,6 +97,9 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public PropertyDto getPropertyById(Long propertyId) {
         Property property = this.getById(propertyId);
+        if(property == null){
+            throw new ResourceNotFoundException("Property", "id", String.valueOf(propertyId));
+        }
         return toPropertyDto(property);
     }
 

@@ -1,4 +1,4 @@
-package com.bookmyrooms.main.entities;
+package com.bookmyrooms.main.entities.properties;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

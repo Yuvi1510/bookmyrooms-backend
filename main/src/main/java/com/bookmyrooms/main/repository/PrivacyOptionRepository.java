@@ -1,7 +1,6 @@
 package com.bookmyrooms.main.repository;
 
-import com.bookmyrooms.main.entities.PrivacyOption;
-import org.hibernate.boot.models.JpaAnnotations;
+import com.bookmyrooms.main.entities.properties.PrivacyOption;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

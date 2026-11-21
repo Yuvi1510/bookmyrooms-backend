@@ -1,5 +1,6 @@
-package com.bookmyrooms.main.entities;
+package com.bookmyrooms.main.entities.rooms;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Amenities {
 
     private String name;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "property_amenities",
