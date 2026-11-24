@@ -4,6 +4,8 @@ import com.bookmyrooms.main.exceptions.ResourceNotFoundException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,16 +47,18 @@ public class FileHandler {
         return newFileName;
     }
 
-    public static Resource serveImage(String path , String fileName){
+    public static ResponseEntity<Resource> serveImage(String path , String fileName){
         try{
             Path filePath = Path.of(path).resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
             if(resource.exists() && resource.isReadable()){
-                return resource;
-
-//                .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
-//                        .body(resource);
+                return ResponseEntity.ok()
+                        .contentType(
+                                MediaTypeFactory.getMediaType(resource)
+                                        .orElse(MediaType.APPLICATION_OCTET_STREAM)
+                        )
+                        .body(resource);
             }else {
                 throw new ResourceNotFoundException("Image","Name",fileName);
             }

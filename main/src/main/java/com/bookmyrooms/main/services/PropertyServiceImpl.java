@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
-import com.bookmyrooms.main.entities.misc.Location;
+import com.bookmyrooms.main.entities.properties.Location;
 import com.bookmyrooms.main.utilities.FileHandler;
 
 
@@ -64,7 +64,7 @@ public class PropertyServiceImpl implements PropertyService {
         property.setTitle(propertyListingRequest.getTitle());
         property.setDescription(propertyListingRequest.getDescription());
         property.setPropertyType(propertyListingRequest.getPropertyStructure());
-        property.setAddress(propertyListingRequest.getAddress());
+        property.setPropertyAddress(propertyListingRequest.getPropertyAddress());
 
         PrivacyOption privacyOption = privacyOptionRepository.findByType(
                 propertyListingRequest.getPrivacyType()
@@ -137,7 +137,7 @@ public class PropertyServiceImpl implements PropertyService {
                 property.getPropertyId(),
                 property.getTitle(),
                 property.getDescription(),
-                property.getAddress(),
+                property.getPropertyAddress(),
                 property.getPrivacyOption(),
                 property.isVerified()
         );

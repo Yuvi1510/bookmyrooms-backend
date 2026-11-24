@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "addresses")
+@Table(name = "property_addresses")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Address {
+public class PropertyAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long addressId;

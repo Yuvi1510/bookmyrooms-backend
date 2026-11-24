@@ -112,16 +112,35 @@ public class RoomServiceImpl implements RoomService{
     }
 
     @Override
+    public Page<RoomDto> getRoomsByPropertyId(Long propertyId, Pageable pageable) {
+        // check if the property with that property id exists
+
+        // get the rooms
+        Page<Room> rooms = this.roomRepository.findRoomsByPropertyPropertyId(propertyId, pageable);
+
+        // convert to Dtos
+        Page<RoomDto> roomDtos = rooms.map(this::toRoomDto);
+
+        return roomDtos;
+    }
+
+    @Override
     @Transactional
     public Page<RoomDto> getAllRooms(Pageable pageable) {
-//        Page<Room> rooms = this.roomRepository.findAll(pageable);
-//        Page<RoomDto> roomDtos = rooms.map(
-//                room -> this.modelMapper.map(room, RoomDto.class)
-//        );
-//        return roomDtos;
+        Page<Room> rooms = this.roomRepository.findAll(pageable);
+        Page<RoomDto> roomDtos = rooms.map(this::toRoomDto);
+        return roomDtos;
+    }
 
-//        return this.roomRepository.getAllRooms(pageable);
-        return null;
+    @Override
+    public RoomDto getRoomById(Long roomId) {
+        Room room = this.roomRepository.findById(roomId)
+                .orElseThrow(() -> new ResourceNotFoundException("Room", "id", String.valueOf(roomId)));
+
+        RoomDto roomDto = toRoomDto(room);
+
+        return roomDto;
+
     }
 
     @Override
@@ -141,6 +160,7 @@ public class RoomServiceImpl implements RoomService{
                 .toList();
         roomDto.setImageNames(images);
 
+        System.out.println("images: " + images);
         return roomDto;
     }
 }

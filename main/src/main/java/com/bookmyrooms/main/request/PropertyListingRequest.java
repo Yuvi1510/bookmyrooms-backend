@@ -1,7 +1,7 @@
 package com.bookmyrooms.main.request;
 
-import com.bookmyrooms.main.entities.properties.Address;
-import com.bookmyrooms.main.entities.misc.Location;
+import com.bookmyrooms.main.entities.properties.PropertyAddress;
+import com.bookmyrooms.main.entities.properties.Location;
 import com.bookmyrooms.main.enums.PropertyType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PropertyListingRequest {
-    private Address address;
+    private PropertyAddress propertyAddress;
     private PropertyType propertyStructure;
     private String privacyType;
     private Location location;

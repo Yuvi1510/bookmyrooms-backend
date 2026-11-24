@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface RoomService {
     RoomDto addRoom(AddRoomRequest addRoomRequest, List<MultipartFile> files, Long propertyId);
+    Page<RoomDto> getRoomsByPropertyId(Long propertyId, Pageable pageable);
     Page<RoomDto> getAllRooms(Pageable pageable);
+    RoomDto getRoomById(Long roomId);
     boolean existsByPropertyPropertyIdAndRoomNumber(Long propertyId, Long roomId);
 }

@@ -28,4 +28,5 @@ public class RoomDto {
     private List<Amenities> amenities;
     private boolean isAvailable;
     private List<String> imageNames;
+    private PropertyDto property;
 }

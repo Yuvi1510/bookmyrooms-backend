@@ -1,4 +1,4 @@
-package com.bookmyrooms.main.entities.misc;
+package com.bookmyrooms.main.entities.rooms;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Location {
-    private double latitude;
-    private double longitude;
+public class Pricing {
+    private double basePrice;
+    private int weekendAdjustment;
+    private double cleaningFee;
 }

@@ -1,4 +1,4 @@
-package com.bookmyrooms.main.entities.misc;
+package com.bookmyrooms.main.entities.rooms;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

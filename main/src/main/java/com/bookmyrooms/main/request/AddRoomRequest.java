@@ -1,8 +1,7 @@
 package com.bookmyrooms.main.request;
 
-import com.bookmyrooms.main.entities.misc.Capacity;
-import com.bookmyrooms.main.entities.misc.Pricing;
-import com.bookmyrooms.main.entities.rooms.Amenities;
+import com.bookmyrooms.main.entities.rooms.Capacity;
+import com.bookmyrooms.main.entities.rooms.Pricing;
 import com.bookmyrooms.main.enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

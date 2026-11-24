@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173") // Allow only your React app
-@RequestMapping("/api/rooms")
+@RequestMapping("/api")
 public class RoomController {
     private final RoomService roomService;
 
@@ -25,13 +25,11 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "rooms/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> addRoom(
             @RequestPart("data") AddRoomRequest addRoomRequest,
             @RequestPart("images")List<MultipartFile> files,
             @RequestParam("propertyId") Long propertyId){
-
-        System.out.println(addRoomRequest);
        RoomDto roomDto = this.roomService.addRoom(
                addRoomRequest,
                files,
@@ -41,13 +39,29 @@ public class RoomController {
        return ResponseEntity.ok().body(roomDto);
     }
 
-    @GetMapping
-    public Page<RoomDto> getAllRooms(
-            @PageableDefault(page = 0,
-                    size = 6,
-                    direction = Sort.Direction.ASC)
-            Pageable pageable){
-        return this.roomService.getAllRooms(pageable);
+    @GetMapping("properties/{propertyId}/rooms")
+    public ResponseEntity<?> getRoomsByPropertyId(@PathVariable Long propertyId,
+                                                  @PageableDefault(size = 10, page = 0, sort = "roomId") Pageable pageable){
+        Page<RoomDto> rooms = this.roomService.getRoomsByPropertyId(propertyId, pageable);
+
+        return ResponseEntity.ok().body(rooms);
     }
 
+    @GetMapping("/rooms")
+    public ResponseEntity<?> getAllRooms(
+            @PageableDefault(page = 0,
+                    size = 6,
+                    sort = "roomNumber",
+                    direction = Sort.Direction.ASC)
+            Pageable pageable){
+        Page<RoomDto> rooms =  this.roomService.getAllRooms(pageable);
+
+        return ResponseEntity.ok().body(rooms);
+    }
+
+    @GetMapping("/rooms/{roomId}")
+    public ResponseEntity<?> getRoomById(@PathVariable Long roomId){
+        RoomDto roomDto = this.roomService.getRoomById(roomId);
+        return ResponseEntity.ok().body(roomDto);
+    }
 }

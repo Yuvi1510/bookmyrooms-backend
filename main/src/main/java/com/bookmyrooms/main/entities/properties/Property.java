@@ -36,7 +36,7 @@ public class Property {
 
     @OneToOne(mappedBy = "property", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Address address;
+    private PropertyAddress propertyAddress;
 
     private boolean isVerified = false;
 
@@ -68,9 +68,9 @@ public class Property {
         propertyImage.setProperty(this);
     }
 
-    public void setAddress(Address address){
-        this.address = address;
-        address.setProperty(this);
+    public void setPropertyAddress(PropertyAddress propertyAddress){
+        this.propertyAddress = propertyAddress;
+        propertyAddress.setProperty(this);
     }
 
     public void setPrivacyOption(PrivacyOption privacyOption){

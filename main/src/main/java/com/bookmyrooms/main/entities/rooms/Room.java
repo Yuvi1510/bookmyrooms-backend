@@ -24,6 +24,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
     private int roomNumber;
+    private String description;
     private double areaInSqFt;
 
 

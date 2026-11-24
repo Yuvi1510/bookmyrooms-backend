@@ -17,20 +17,17 @@ public class ImageController {
     @Value("${project.propertyImages}")
     private String propertyImagesPath;
 
+    @Value("${project.roomImages}")
+    private String roomImagesPath;
+
 
     @GetMapping("/properties")
-    public ResponseEntity<Resource> getImage(@RequestParam String img){
-        Resource resource = FileHandler.serveImage(propertyImagesPath, img);
+    public ResponseEntity<Resource> getpropertyImage(@RequestParam String img){
+        return FileHandler.serveImage(propertyImagesPath, img);
+    }
 
-        if(resource == null){
-            throw new ResourceNotFoundException("Image", "name", img);
-        }
-
-        return ResponseEntity.ok()
-                .contentType(
-                        MediaTypeFactory.getMediaType(resource)
-                                .orElse(MediaType.APPLICATION_OCTET_STREAM)
-                )
-                .body(resource);
+    @GetMapping("/rooms")
+    public ResponseEntity<Resource> getRoomImage(@RequestParam String img){
+        return FileHandler.serveImage(roomImagesPath, img);
     }
 }
